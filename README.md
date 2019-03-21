@@ -19,33 +19,33 @@ make
 
 ```java
 
-	public static native byte[] convertTTF2WOFF2Byte(byte[] inputByte);
+public static native byte[] convertTTF2WOFF2Byte(byte[] inputByte);
 
-	/**
-	 * convert truetype font to woff2
-	 * 
-	 * @param intputFileName
-	 * @param outputFileName
-	 * @return
-	 */
-	public static native boolean convertTTF2WOFF2(String intputFileName, String outputFileName);
+/**
+ * convert truetype font to woff2
+ * 
+ * @param intputFileName
+ * @param outputFileName
+ * @return
+ */
+public static native boolean convertTTF2WOFF2(String intputFileName, String outputFileName);
 
-	/**
-	 * convert woff2 to truetype font
-	 * 
-	 * @param inputFileName
-	 * @param outputFileName
-	 * @return
-	 */
-	public static native boolean convertWOFF2ToTTF(String inputFileName, String outputFileName);
+/**
+ * convert woff2 to truetype font
+ * 
+ * @param inputFileName
+ * @param outputFileName
+ * @return
+ */
+public static native boolean convertWOFF2ToTTF(String inputFileName, String outputFileName);
 
 ```
 
 
 # Run
 
-```
- java -Djava.library.path=<link to libjwoff2> -jar jwoff2.jar inputfilename outputfilename [woff2ttf|ttf2woff2] 
+```bash
+java -Djava.library.path=<link to libjwoff2> -jar jwoff2.jar inputfilename outputfilename [woff2ttf|ttf2woff2] 
 
 ```
 # References
