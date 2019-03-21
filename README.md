@@ -45,7 +45,7 @@ public static native boolean convertWOFF2ToTTF(String inputFileName, String outp
 # Run
 
 ```bash
-java -Djava.library.path=<link to libjwoff2> -jar jwoff2.jar inputfilename outputfilename [woff2ttf|ttf2woff2] 
+java -Djava.library.path=<link to libjwoff2> -jar libjwoff2.jar inputfilename outputfilename [woff2ttf|ttf2woff2] 
 
 ```
 # References
