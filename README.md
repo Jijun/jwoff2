@@ -3,16 +3,26 @@ a java wrapper for woff2 to help convert ttf/otf font to woff2 or  woff2 to ttf 
 
 # Build
 
-1. build [woff2](http://github.com/google/woff2) and build jwoff2
+1. build [woff2](http://github.com/google/woff2)
+
 
 ```bash
 git clone --recursive https://github.com/Jijun/jwoff2.git
+
 cd jwoff2/woff2
-make clean all
-cd ..
+mkdir out
+cd out
+cmake ..
+make
+sudo make install
+
+```
+2. build jwoff2
+
+```
+cd jwoff2
 cmake .
 make
-
 ```
 
 # Function
