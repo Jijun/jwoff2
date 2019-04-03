@@ -7,10 +7,12 @@ a java wrapper for woff2 to help convert ttf/otf font to woff2 or  woff2 to ttf 
 
 
 ```bash
-pip install Brotli
 git clone --recursive https://github.com/Jijun/jwoff2.git
-
-cd jwoff2/woff2
+#compile brotli
+cd jwoff2/woff2/brotli
+cmake .
+make && sudo make install
+cd ..
 mkdir out
 cd out
 cmake ..

@@ -31,7 +31,6 @@ target_link_libraries(jwoff2  "${WOFF2ENC_LIBRARIES}" "${WOFF2DEC_LIBRARIES}")
 # jar build
 find_package(Java REQUIRED)
 include(UseJava)
-set(CMAKE_JAVA_COMPILE_FLAGS "-source" "1.8" "-target" "1.8")
 # Build the Java code into libjwoff2.jar
 set(CMAKE_JAVA_JAR_ENTRY_POINT com.typoface.jwoff2.Main) 
 add_jar(libjwoff2 SOURCES 
