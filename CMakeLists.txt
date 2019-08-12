@@ -4,7 +4,11 @@ project(jwoff2)
 
 set(CMAKE_BUILD_TYPE Release)
 find_package(JNI REQUIRED)
-include_directories(${JNI_INCLUDE_DIRS})
+include_directories(${JNI_INCLUDE_DIRS} /usr/local/include/)
+# fix macos bug:https://stackoverflow.com/questions/54068035/linking-not-working-in-homebrews-cmake-since-mojave
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    include_directories(/usr/local/include/)
+endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_FILES jwoff2.cc)
 
@@ -18,11 +22,11 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(WOFF2Dec)
 if (NOT WOFF2DEC_FOUND)
-    message(FATAL_ERROR "liwoff2dec is needed.")
+    message(FATAL_ERROR "libwoff2dec is needed.")
 endif ()
 find_package(WOFF2Enc)
 if (NOT WOFF2ENC_FOUND)
-    message(FATAL_ERROR "liwoff2enc is needed.")
+    message(FATAL_ERROR "libwoff2enc is needed.")
 endif ()
 
 add_library(jwoff2 SHARED ${SOURCE_FILES})
