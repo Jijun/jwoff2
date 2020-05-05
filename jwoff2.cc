@@ -30,12 +30,14 @@ JNIEXPORT jbyteArray JNICALL Java_com_typoface_jwoff2_WOFF2_convertTTF2WOFF2Byte
 	if (!woff2::ConvertTTFToWOFF2(input_data, chars_len, output_data,
 			&output_size, params)) {
 		fprintf(stderr, "Compression failed.\n");
+		delete [] chars;
 		exit(1);
 	}
 	output.resize(output_size);
 
 	jbyteArray arr = env->NewByteArray(output_size);
 	env->SetByteArrayRegion(arr, 0, output_size, reinterpret_cast<jbyte*>(output_data));
+	delete [] chars;
 	return arr;
 }
 
@@ -50,6 +52,9 @@ JNIEXPORT jboolean JNICALL Java_com_typoface_jwoff2_WOFF2_convertTTF2WOFF2(
 
 	string filename(in_str);
 	string outfilename(ou_str);
+	env->ReleaseStringUTFChars(jfilename,in_str);
+	env->ReleaseStringUTFChars(joutfilename,ou_str);
+	
 	fprintf(stdout, "Processing %s => %s\n", filename.c_str(),
 			outfilename.c_str());
 	std::ifstream ifs(filename.c_str(), std::ios::binary);
@@ -72,7 +77,6 @@ JNIEXPORT jboolean JNICALL Java_com_typoface_jwoff2_WOFF2_convertTTF2WOFF2(
 
 	std::ofstream ofs(outfilename.c_str(), std::ios::binary);
 	std::copy(output.begin(), output.end(), std::ostream_iterator<char>(ofs));
-
 	return true;
 
 }

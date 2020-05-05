@@ -37,4 +37,4 @@ CMakeCache.txt
 .cproject
 .project
 .settings/
-
+*.jar
