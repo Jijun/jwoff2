@@ -11,33 +11,28 @@ using std::string;
 
 JNIEXPORT jbyteArray JNICALL Java_com_typoface_jwoff2_WOFF2_convertTTF2WOFF2Byte(
 		JNIEnv *env, jclass cls, jbyteArray bytearray) {
-	char *chars = NULL;
-	jbyte *bytes;
-	bytes = env->GetByteArrayElements(bytearray, 0);
+		
+	uint8_t* input_data =  (uint8_t*) (env->GetByteArrayElements(bytearray, 0));
 	int chars_len = env->GetArrayLength(bytearray);
-	chars = new char[chars_len + 1];
-	memset(chars, 0, chars_len + 1);
-	memcpy(chars, bytes, chars_len);
-	chars[chars_len] = 0;
 
-	env->ReleaseByteArrayElements(bytearray, bytes, 0);
-
-	const uint8_t* input_data = reinterpret_cast<const uint8_t*>(chars);
 	size_t output_size = woff2::MaxWOFF2CompressedSize(input_data, chars_len);
 	string output(output_size, 0);
-	uint8_t* output_data = reinterpret_cast<uint8_t*>(&output[0]);
+	uint8_t* output_data = (uint8_t*)(&output[0]);
 	woff2::WOFF2Params params;
 	if (!woff2::ConvertTTFToWOFF2(input_data, chars_len, output_data,
 			&output_size, params)) {
 		fprintf(stderr, "Compression failed.\n");
-		delete [] chars;
+		env->ReleaseByteArrayElements(bytearray, (jbyte*)( input_data), 0);
+		
 		exit(1);
 	}
 	output.resize(output_size);
 
 	jbyteArray arr = env->NewByteArray(output_size);
-	env->SetByteArrayRegion(arr, 0, output_size, reinterpret_cast<jbyte*>(output_data));
-	delete [] chars;
+	env->SetByteArrayRegion(arr, 0, output_size, (jbyte*)(output_data));
+	
+	env->ReleaseByteArrayElements(bytearray, (jbyte*)( input_data), 0);
+	
 	return arr;
 }
 
